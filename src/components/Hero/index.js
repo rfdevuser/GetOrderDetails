@@ -10,8 +10,10 @@ const OrderFetcher = () => {
 
 
   const fetchOrderDetails = async () => {
+    setLoading(true); // Start loading state
     setError('');
     setOrderDetails(null);
+    
     try {
       const response = await axios.get(
         `https://www.onatiglobal.com/wp-json/wc/v3/orders/${orderId}`,
@@ -27,9 +29,10 @@ const OrderFetcher = () => {
       setError('Error fetching order details. Please check the order ID.');
       console.error(err);
     } finally {
-      setLoading(false);
+      setLoading(false); // End loading state
     }
   };
+  
 
   return  (
     <div className="max-w-md mx-auto p-4">
@@ -62,18 +65,24 @@ const OrderFetcher = () => {
 
         <h3 className="font-semibold mt-4">Billing Address</h3>
         <p><strong>Name:</strong> {orderDetails.billing.first_name} {orderDetails.billing.last_name}</p>
-        <p><strong>Address:</strong> {orderDetails.billing.address_1}, {orderDetails.billing.city}, {orderDetails.billing.state}</p>
+        <p><strong>company:</strong> {orderDetails.billing.company} </p>
+        <p><strong>Address:</strong> {orderDetails.billing.address_1},{orderDetails.billing.address_2} ,{orderDetails.billing.city}, {orderDetails.billing.state}</p>
         <p><strong>Pin Code:</strong> {orderDetails.billing.postcode}</p>
         <p><strong>Country:</strong> {orderDetails.billing.country}</p>
         <p><strong>Email:</strong> {orderDetails.billing.email}</p>
         <p><strong>Phone:</strong> {orderDetails.billing.phone}</p>
 
         <h3 className="font-semibold mt-4">Shipping Address</h3>
-        <p><strong>Name:</strong> {orderDetails.shipping.first_name} {orderDetails.shipping.last_name}</p>
-        <p><strong>Address:</strong> {orderDetails.shipping.address_1}, {orderDetails.shipping.city}, {orderDetails.shipping.state}</p>
-        <p><strong>Pin Code:</strong> {orderDetails.shipping.postcode}</p>
-        <p><strong>Country:</strong> {orderDetails.shipping.country}</p>
+        <p><strong>Name:</strong> {orderDetails.billing.first_name} {orderDetails.billing.last_name}</p>
+        <p><strong>company:</strong> {orderDetails.billing.company} </p>
+        <p><strong>Address:</strong> {orderDetails.billing.address_1},{orderDetails.billing.address_2} ,{orderDetails.billing.city}, {orderDetails.billing.state}</p>
+        <p><strong>Pin Code:</strong> {orderDetails.billing.postcode}</p>
+        <p><strong>Country:</strong> {orderDetails.billing.country}</p>
+        <p><strong>Email:</strong> {orderDetails.billing.email}</p>
+        <p><strong>Phone:</strong> {orderDetails.billing.phone}</p>
 
+        <h3 className="font-semibold mt-4">Payment method</h3>
+        <p><strong>payment_method:</strong> {orderDetails.payment_method}</p>
         <h3 className="font-semibold mt-4">Line Items</h3>
         <ul>
           {orderDetails.line_items.map(item => (
